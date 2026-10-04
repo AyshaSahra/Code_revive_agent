@@ -1,0 +1,20 @@
+{
+    "react": "Frontend",
+    "vue": "Frontend",
+    "angular": "Frontend",
+    "express": "Backend",
+    "django": "Backend",
+    "flask": "Backend",
+    "mongoose": "Database",
+    "mysql": "Database",
+    "mongodb": "Database",
+    "next": "Frontend",
+    "redux": "Frontend",
+    "axios": "Utility/HTTP Client",
+    "cors": "Backend Middleware",
+    "dotenv": "Config/Environment",
+    "nodemon": "Dev Tool",
+    "jsonwebtoken": "Authentication",
+    "bcrypt": "Authentication",
+    "bcryptjs": "Authentication"
+}

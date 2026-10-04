@@ -1,0 +1,46 @@
+{
+    "exclude_directories": [
+        ".git",
+        "node_modules",
+        "__pycache__",
+        ".vite",
+        ".vscode",
+        "venv",
+        "dist",
+        "build"
+    ],
+    "exclude_files": [
+        ".DS_Store",
+        "Thumbs.db"
+    ],
+    "exclude_extensions": [
+        ".sample",
+        ".log",
+        ".tmp"
+    ],
+    "extension_language_map": {
+        ".js": "JavaScript",
+        ".jsx": "JavaScript (React)",
+        ".ts": "TypeScript",
+        ".tsx": "TypeScript (React)",
+        ".json": "JSON",
+        ".html": "HTML",
+        ".css": "CSS",
+        ".scss": "SCSS",
+        ".py": "Python",
+        ".md": "Markdown",
+        ".env": "Environment Config"
+    },
+    "important_files": [
+        "package.json",
+        "server.js",
+        "app.js",
+        "App.js",
+        "App.jsx",
+        "db.js",
+        "database.js",
+        ".env",
+        "vite.config.js",
+        "webpack.config.js"
+    ]
+}
