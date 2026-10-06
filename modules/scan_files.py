@@ -1,13 +1,22 @@
 import os
 import json
 from collections import Counter
+from pathlib import Path
+
+# --- CONFIGURABLE BASE PATH ---
+BASE_DIR = Path("D:/VS/Code Revive Agent")   # Change this once if you move your project
+CONFIG_DIR = BASE_DIR / "config"
+OUTPUT_DIR = BASE_DIR / "output"
+
+# Ensure output directory exists
+OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+
 
 def load_config():
     """Load scanner configuration from scanner_config.json."""
-    current_dir = os.path.dirname(os.path.abspath(__file__))
-    config_path = os.path.join(current_dir, "config", "scanner_config.json")
+    config_path = CONFIG_DIR / "scanner_config.json"
 
-    if not os.path.isfile(config_path):
+    if not config_path.is_file():
         raise FileNotFoundError(
             f"Missing scanner_config.json at {config_path}. "
             "Please create the file with scanner rules."
@@ -104,7 +113,6 @@ def analyze_package_json(path, rel_path):
 
 
 def build_report(path, config):
-    """Compile the scanner findings into a single repository report."""
     project_name = os.path.basename(os.path.normpath(path))
     all_files, extension_counter, important_files = scan_directory(path, config)
 
@@ -140,13 +148,8 @@ def main():
 
     report = build_report(path, config)
 
-    # Save report inside the config folder
-    current_dir = os.path.dirname(os.path.abspath(__file__))
-    output_file = os.path.join(
-        current_dir,
-        "config",
-        "project_report.json"
-    )
+    # Save report inside the output folder
+    output_file = OUTPUT_DIR / "project_report.json"
 
     with open(output_file, "w") as f:
         json.dump(report, f, indent=4)

@@ -1,17 +1,21 @@
 import os
 import json
+from pathlib import Path
+
+# --- CONFIGURABLE BASE PATH ---
+BASE_DIR = Path("D:/VS/Code Revive Agent")   # Change this once if you move your project
+CONFIG_DIR = BASE_DIR / "config"
+OUTPUT_DIR = BASE_DIR / "output"
+
+# Ensure output directory exists
+OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
 
 def load_technology_map():
     """Load technology_map.json from the config folder."""
-    current_dir = os.path.dirname(os.path.abspath(__file__))
-    tech_map_path = os.path.join(
-        current_dir,
-        "config",
-        "technology_map.json"
-    )
+    tech_map_path = CONFIG_DIR / "technology_map.json"
 
-    if not os.path.isfile(tech_map_path):
+    if not tech_map_path.is_file():
         raise FileNotFoundError(
             f"Missing technology_map.json at {tech_map_path}. "
             "Please create the file with dependency-category mappings."
@@ -29,9 +33,11 @@ def load_technology_map():
     return technology_map
 
 
-def load_project_report(project_report_path):
+def load_project_report():
     """Read project_report.json to gather evidence already collected by the scanner."""
-    if not os.path.isfile(project_report_path):
+    project_report_path = OUTPUT_DIR / "project_report.json"
+    
+    if not project_report_path.is_file():
         raise FileNotFoundError(f"project_report.json not found at: {project_report_path}")
 
     try:
@@ -101,11 +107,8 @@ def build_tech_stack_report(package_data, technology_map):
 
 
 def main():
-    current_dir = os.path.dirname(os.path.abspath(__file__))
-    project_report_path = os.path.join(current_dir, "config", "project_report.json")
-
     try:
-        package_json_analysis = load_project_report(project_report_path)
+        package_json_analysis = load_project_report()
         technology_map = load_technology_map()
     except (FileNotFoundError, ValueError) as e:
         print(e)
@@ -118,7 +121,8 @@ def main():
             all_reports.append(tech_stack_report)
 
     # Save combined technology report
-    output_file = os.path.join(current_dir, "config", "tech_stack_used.json")
+    output_file = OUTPUT_DIR / "tech_stack_used.json"
+    
     with open(output_file, "w") as f:
         json.dump(all_reports, f, indent=4)
 
