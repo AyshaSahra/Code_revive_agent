@@ -77,64 +77,66 @@ def find_package_json_files(path, config):
     return package_files
 
 
-def detect_technologies(dependencies, dev_dependencies, scripts):
-    """Detect technologies based on dependencies and scripts."""
-    tech_map = {
-        "react": "React",
-        "react-dom": "React",
-        "express": "Express.js",
-        "mongoose": "MongoDB/Mongoose",
-        "vite": "Vite",
-        "tailwindcss": "Tailwind CSS",
-        "typescript": "TypeScript",
-        "next": "Next.js",
-        "dotenv": "dotenv",
-        "cors": "CORS",
-        "axios": "Axios"
-    }
+def load_technology_map():
+    """Load technology_map.json from the config folder."""
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    tech_map_path = os.path.join(current_dir, "config", "technology_map.json")
 
-    detected = set()
+    if not os.path.isfile(tech_map_path):
+        raise FileNotFoundError(
+            f"Missing technology_map.json at {tech_map_path}. "
+            "Please create the file with dependency-category mappings."
+        )
+
+    try:
+        with open(tech_map_path, "r") as f:
+            technology_map = json.load(f)
+    except json.JSONDecodeError as e:
+        raise ValueError(f"Invalid JSON in technology_map.json: {e}")
+
+    return technology_map
+
+
+def detect_technologies(dependencies, dev_dependencies, scripts, technology_map):
+    """Detect technologies based on dependencies and scripts using external map."""
+    detected = {}
+
     all_deps = list(dependencies.keys()) + list(dev_dependencies.keys())
 
     for dep in all_deps:
-        dep_lower = dep.lower()
-        for key, tech in tech_map.items():
-            if key in dep_lower:
-                detected.add(tech)
+        base_name = dep.lower()
+        for tech, category in technology_map.items():
+            if tech.lower() in base_name:
+                detected[dep] = category
 
     for script_name, script_cmd in scripts.items():
-        for key, tech in tech_map.items():
-            if key in script_cmd.lower():
-                detected.add(tech)
+        for tech, category in technology_map.items():
+            if tech.lower() in script_cmd.lower():
+                detected[f"script:{script_name}"] = category
 
-    return sorted(detected)
+    return detected
 
 
-def analyze_package_json(path, rel_path):
+def analyze_package_json(path, rel_path, technology_map):
     """Read and analyze a package.json file."""
     try:
         with open(path, "r") as f:
             package_data = json.load(f)
     except json.JSONDecodeError as e:
-        return {
-            "file_path": rel_path,
-            "error": f"Invalid JSON: {e}"
-        }
+        return {"file_path": rel_path, "error": f"Invalid JSON: {e}"}
     except Exception as e:
-        return {
-            "file_path": rel_path,
-            "error": str(e)
-        }
+        return {"file_path": rel_path, "error": str(e)}
 
     dependencies = package_data.get("dependencies", {})
     dev_dependencies = package_data.get("devDependencies", {})
     scripts = package_data.get("scripts", {})
 
-    technologies = detect_technologies(dependencies, dev_dependencies, scripts)
+    technologies = detect_technologies(dependencies, dev_dependencies, scripts, technology_map)
 
     return {
         "file_path": rel_path,
         "package_name": package_data.get("name"),
+        "absolute_path": path,
         "version": package_data.get("version"),
         "description": package_data.get("description"),
         "dependencies": dependencies,
@@ -144,15 +146,19 @@ def analyze_package_json(path, rel_path):
     }
 
 
+
 def build_report(path, config):
     project_name = os.path.basename(os.path.normpath(path))
     all_files, extension_counter, important_files = scan_directory(path, config)
+
+    # Load technology map once here
+    technology_map = load_technology_map()
 
     package_files = find_package_json_files(path, config)
     package_analysis = []
     for rel_path in package_files:
         full_path = os.path.join(path, rel_path)
-        package_analysis.append(analyze_package_json(full_path, rel_path))
+        package_analysis.append(analyze_package_json(full_path, rel_path, technology_map))
 
     report = {
         "project_name": project_name,
@@ -162,6 +168,7 @@ def build_report(path, config):
         "package_json_analysis": package_analysis
     }
     return report
+
 
 
 def main():

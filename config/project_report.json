@@ -19,6 +19,7 @@
         {
             "file_path": "client\\package.json",
             "package_name": "terra-tales-project",
+            "absolute_path": "D:\\VS\\terra-tales-project\\client\\package.json",
             "version": "0.1.0",
             "description": null,
             "dependencies": {
@@ -60,19 +61,35 @@
                 "test": "react-scripts test",
                 "eject": "react-scripts eject"
             },
-            "technologies_detected": [
-                "Axios",
-                "CORS",
-                "Express.js",
-                "MongoDB/Mongoose",
-                "React",
-                "Tailwind CSS",
-                "dotenv"
-            ]
+            "technologies_detected": {
+                "@emotion/react": "Frontend",
+                "@react-google-maps/api": "Frontend",
+                "@testing-library/jest-dom": "Testing",
+                "@testing-library/react": "Frontend",
+                "axios": "Utility/HTTP Client",
+                "bcryptjs": "Authentication",
+                "cors": "Backend Middleware",
+                "dotenv": "Config/Environment",
+                "express": "Backend",
+                "jsonwebtoken": "Authentication",
+                "lucide-react": "Frontend",
+                "mongoose": "Database",
+                "react": "Frontend",
+                "react-dom": "Frontend",
+                "react-icons": "Frontend",
+                "react-router-dom": "Frontend",
+                "react-scripts": "Frontend",
+                "tailwindcss": "Frontend Styling",
+                "script:start": "Frontend",
+                "script:build": "Frontend",
+                "script:test": "Frontend",
+                "script:eject": "Frontend"
+            }
         },
         {
             "file_path": "server\\package.json",
             "package_name": "server",
+            "absolute_path": "D:\\VS\\terra-tales-project\\server\\package.json",
             "version": "1.0.0",
             "description": "",
             "dependencies": {
@@ -88,13 +105,15 @@
             "scripts": {
                 "test": "echo \"Error: no test specified\" && exit 1"
             },
-            "technologies_detected": [
-                "Axios",
-                "CORS",
-                "Express.js",
-                "MongoDB/Mongoose",
-                "dotenv"
-            ]
+            "technologies_detected": {
+                "axios": "Utility/HTTP Client",
+                "bcryptjs": "Authentication",
+                "cors": "Backend Middleware",
+                "dotenv": "Config/Environment",
+                "express": "Backend",
+                "jsonwebtoken": "Authentication",
+                "mongoose": "Database"
+            }
         }
     ]
 }
