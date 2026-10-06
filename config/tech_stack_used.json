@@ -1,89 +1,75 @@
 [
     {
-        "project_name": "terra-tales-project",
+        "project_name": "client",
         "project_version": "0.1.0",
-        "dependencies": {
-            "@emotion/react": "^11.14.0",
-            "@emotion/styled": "^11.14.0",
-            "@mui/material": "^6.4.5",
-            "@react-google-maps/api": "^2.20.6",
-            "@testing-library/jest-dom": "^5.17.0",
-            "@testing-library/react": "^13.4.0",
-            "@testing-library/user-event": "^13.5.0",
-            "ajv": "^8.17.1",
-            "ajv-keywords": "^5.1.0",
-            "axios": "^1.7.9",
-            "bcryptjs": "^3.0.1",
-            "cors": "^2.8.5",
-            "create-context": "^1.0.0",
-            "dotenv": "^16.4.7",
-            "express": "^4.21.2",
-            "firebase": "^11.3.0",
-            "framer-motion": "^12.0.11",
-            "jsonwebtoken": "^9.0.2",
-            "lucide-react": "^0.475.0",
-            "mongoose": "^8.10.1",
-            "react": "^19.0.0",
-            "react-dom": "^19.0.0",
-            "react-icons": "^5.5.0",
-            "react-router-dom": "^7.1.3",
-            "react-scripts": "^5.0.1",
-            "web-vitals": "^2.1.4"
+        "technologies_detected_from_package_dependencies": {
+            "Frontend": [
+                "@emotion/react",
+                "@react-google-maps/api",
+                "@testing-library/react",
+                "lucide-react",
+                "react",
+                "react-dom",
+                "react-icons",
+                "react-router-dom",
+                "react-scripts"
+            ],
+            "Utility/HTTP Client": [
+                "axios"
+            ],
+            "Authentication": [
+                "bcryptjs",
+                "jsonwebtoken"
+            ],
+            "Backend Middleware": [
+                "cors"
+            ],
+            "Config/Environment": [
+                "dotenv"
+            ],
+            "Backend": [
+                "express"
+            ],
+            "Database": [
+                "mongoose"
+            ],
+            "Frontend Styling": [
+                "tailwindcss"
+            ]
         },
-        "dev_dependencies": {
-            "autoprefixer": "^10.4.20",
-            "postcss": "^8.5.1",
-            "tailwindcss": "^3.4.17"
-        },
-        "scripts": {
+        "scripts_detected": {
             "start": "react-scripts start",
             "build": "react-scripts build",
             "test": "react-scripts test",
             "eject": "react-scripts eject"
-        },
-        "identified_technologies": {
-            "@emotion/react": "Frontend",
-            "@react-google-maps/api": "Frontend",
-            "@testing-library/react": "Frontend",
-            "axios": "Utility/HTTP Client",
-            "bcryptjs": "Authentication",
-            "cors": "Backend Middleware",
-            "dotenv": "Config/Environment",
-            "express": "Backend",
-            "jsonwebtoken": "Authentication",
-            "lucide-react": "Frontend",
-            "mongoose": "Database",
-            "react": "Frontend",
-            "react-dom": "Frontend",
-            "react-icons": "Frontend",
-            "react-router-dom": "Frontend",
-            "react-scripts": "Frontend"
         }
     },
     {
         "project_name": "server",
         "project_version": "1.0.0",
-        "dependencies": {
-            "axios": "^1.7.9",
-            "bcryptjs": "^3.0.2",
-            "cors": "^2.8.5",
-            "dotenv": "^16.4.7",
-            "express": "^4.21.2",
-            "jsonwebtoken": "^9.0.2",
-            "mongoose": "^8.10.1"
+        "technologies_detected_from_package_dependencies": {
+            "Utility/HTTP Client": [
+                "axios"
+            ],
+            "Authentication": [
+                "bcryptjs",
+                "jsonwebtoken"
+            ],
+            "Backend Middleware": [
+                "cors"
+            ],
+            "Config/Environment": [
+                "dotenv"
+            ],
+            "Backend": [
+                "express"
+            ],
+            "Database": [
+                "mongoose"
+            ]
         },
-        "dev_dependencies": {},
-        "scripts": {
+        "scripts_detected": {
             "test": "echo \"Error: no test specified\" && exit 1"
-        },
-        "identified_technologies": {
-            "axios": "Utility/HTTP Client",
-            "bcryptjs": "Authentication",
-            "cors": "Backend Middleware",
-            "dotenv": "Config/Environment",
-            "express": "Backend",
-            "jsonwebtoken": "Authentication",
-            "mongoose": "Database"
         }
     }
 ]

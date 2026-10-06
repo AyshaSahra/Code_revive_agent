@@ -18,7 +18,7 @@
     "package_json_analysis": [
         {
             "file_path": "client\\package.json",
-            "package_name": "terra-tales-project",
+            "package_name": "client",
             "absolute_path": "D:\\VS\\terra-tales-project\\client\\package.json",
             "version": "0.1.0",
             "description": null,
@@ -60,30 +60,6 @@
                 "build": "react-scripts build",
                 "test": "react-scripts test",
                 "eject": "react-scripts eject"
-            },
-            "technologies_detected": {
-                "@emotion/react": "Frontend",
-                "@react-google-maps/api": "Frontend",
-                "@testing-library/jest-dom": "Testing",
-                "@testing-library/react": "Frontend",
-                "axios": "Utility/HTTP Client",
-                "bcryptjs": "Authentication",
-                "cors": "Backend Middleware",
-                "dotenv": "Config/Environment",
-                "express": "Backend",
-                "jsonwebtoken": "Authentication",
-                "lucide-react": "Frontend",
-                "mongoose": "Database",
-                "react": "Frontend",
-                "react-dom": "Frontend",
-                "react-icons": "Frontend",
-                "react-router-dom": "Frontend",
-                "react-scripts": "Frontend",
-                "tailwindcss": "Frontend Styling",
-                "script:start": "Frontend",
-                "script:build": "Frontend",
-                "script:test": "Frontend",
-                "script:eject": "Frontend"
             }
         },
         {
@@ -104,15 +80,6 @@
             "dev_dependencies": {},
             "scripts": {
                 "test": "echo \"Error: no test specified\" && exit 1"
-            },
-            "technologies_detected": {
-                "axios": "Utility/HTTP Client",
-                "bcryptjs": "Authentication",
-                "cors": "Backend Middleware",
-                "dotenv": "Config/Environment",
-                "express": "Backend",
-                "jsonwebtoken": "Authentication",
-                "mongoose": "Database"
             }
         }
     ]
