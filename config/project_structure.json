@@ -1,0 +1,55 @@
+{
+    "project_name": "terra-tales-project",
+    "architecture": {
+        "type": "client-server",
+        "confidence": "high",
+        "evidence": [
+            "Found frontend domain via directory: client",
+            "Found backend domain via directory: server",
+            "Detected both distinct frontend and backend roles."
+        ]
+    },
+    "top_level_directories": [
+        "client",
+        "server"
+    ],
+    "domains": {
+        "client": {
+            "role": "frontend",
+            "directories_found": {
+                "public": [
+                    "client/public"
+                ],
+                "source": [
+                    "client/src"
+                ]
+            },
+            "package_file": "client\\package.json"
+        },
+        "server": {
+            "role": "backend",
+            "directories_found": {
+                "configuration": [
+                    "server/config"
+                ],
+                "routes": [
+                    "server/routes"
+                ]
+            },
+            "package_file": "server\\package.json"
+        }
+    },
+    "important_files_by_domain": {
+        "client": [
+            "client\\package.json",
+            "client\\src\\App.js"
+        ],
+        "server": [
+            "server\\.env",
+            "server\\package.json",
+            "server\\server.js",
+            "server\\config\\db.js"
+        ],
+        "unmapped": []
+    }
+}

@@ -1,0 +1,16 @@
+{
+    "frontend": ["client", "frontend", "web", "ui", "app", "website"],
+    "backend": ["server", "backend", "api", "service", "services"],
+    "source": ["src", "lib", "source"],
+    "configuration": ["config", "settings", ".github"],
+    "tests": ["test", "tests", "__tests__", "e2e"],
+    "components": ["components", "views", "pages"],
+    "routes": ["routes", "router"],
+    "controllers": ["controllers", "handlers"],
+    "models": ["models", "schemas", "entities"],
+    "middleware": ["middleware", "middlewares"],
+    "utils": ["utils", "helpers", "shared"],
+    "public": ["public", "static", "assets"],
+    "scripts": ["scripts", "tools", "bin"],
+    "docs": ["docs", "documentation"]
+}
