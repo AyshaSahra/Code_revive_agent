@@ -1,25 +1,19 @@
-
 import json
 import os
 import subprocess
 import time
 import threading
 import queue
+import sys
 from pathlib import Path
 from datetime import datetime, timezone
 
-BASE_DIR = Path(__file__).resolve().parents[2]
-OUTPUT_DIR = BASE_DIR / "output"
+sys.path.append(str(Path(__file__).resolve().parents[2]))
+from modules.utils import load_json, load_config, OUTPUT_DIR
+
 PROJECT_REPORT = OUTPUT_DIR / "project_report.json"
 OUTPUT_REPORT = OUTPUT_DIR / "runtime_analysis.json"
-
-STARTUP_WINDOW_SECONDS = 15
-OUTPUT_LIMIT = 12000
-
-
-def load_json(path):
-    with path.open("r", encoding="utf-8-sig") as file:
-        return json.load(file)
+CONFIG = load_config("scanner_config.json")
 
 
 def discover_manifests(report):
@@ -79,6 +73,9 @@ def run_start_script(manifest_path):
     captured = []
     output_queue = queue.Queue()
     process = None
+    
+    startup_window = CONFIG["limits"]["startup_window_seconds"]
+    output_limit = CONFIG["limits"]["output_limit"]
 
     try:
         process = subprocess.Popen(
@@ -103,7 +100,7 @@ def run_start_script(manifest_path):
         threading.Thread(target=read_output, daemon=True).start()
 
         output_finished = False
-        deadline = started + STARTUP_WINDOW_SECONDS
+        deadline = started + startup_window
 
         while time.monotonic() < deadline and not output_finished:
             if process.poll() is not None and output_queue.empty():
@@ -117,7 +114,7 @@ def run_start_script(manifest_path):
                     print(line, end="", flush=True)
                     captured.append(line)
 
-                    while sum(map(len, captured)) > OUTPUT_LIMIT:
+                    while sum(map(len, captured)) > output_limit:
                         captured.pop(0)
             except queue.Empty:
                 continue
@@ -133,7 +130,7 @@ def run_start_script(manifest_path):
                 output_finished = True
             else:
                 captured.append(line)
-                while sum(map(len, captured)) > OUTPUT_LIMIT:
+                while sum(map(len, captured)) > output_limit:
                     captured.pop(0)
 
         exit_code = process.poll()
@@ -167,7 +164,7 @@ def run_start_script(manifest_path):
         result["duration_seconds"] = round(
             time.monotonic() - started, 2
         )
-        result["output"] = "".join(captured)[-OUTPUT_LIMIT:]
+        result["output"] = "".join(captured)[-output_limit:]
 
     return result
 
@@ -201,7 +198,7 @@ def main():
         "project_name": report.get("project_name", "unknown"),
         "analysis_type": "runtime_analysis",
         "generated_at": datetime.now(timezone.utc).isoformat(),
-        "startup_window_seconds": STARTUP_WINDOW_SECONDS,
+        "startup_window_seconds": CONFIG["limits"]["startup_window_seconds"],
         "packages_checked": len(results),
         "status_counts": status_counts,
         "results": results,

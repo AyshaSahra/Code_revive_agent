@@ -1,7 +1,14 @@
 import os
 import json
+import sys
+from pathlib import Path
 from tree_sitter import Language, Parser
 import tree_sitter_javascript
+
+sys.path.append(str(Path(__file__).resolve().parents[2]))
+from modules.utils import load_json, load_config, find_project_root, OUTPUT_DIR
+
+CONFIG = load_config("scanner_config.json")
 
 JS_LANGUAGE = Language(tree_sitter_javascript.language())
 parser = Parser(JS_LANGUAGE)
@@ -11,16 +18,7 @@ def walk_project_files(project_dir):
     """Collect project JavaScript files while skipping generated/dependency folders."""
 
     js_files = []
-
-    ignored_dirs = {
-        "node_modules",
-        ".git",
-        "dist",
-        "build",
-        ".next",
-        "coverage",
-        "__pycache__"
-    }
+    ignored_dirs = set(CONFIG["exclude_directories"])
 
     for root, dirs, files in os.walk(project_dir):
 
@@ -143,42 +141,20 @@ def analyze_project(project_dir, output_file):
 
 if __name__ == "__main__":
 
-    output_folder = "output"
+    report_file = OUTPUT_DIR / "project_report.json"
 
-    report_file = os.path.join(
-        output_folder,
-        "project_report.json"
-    )
+    if not report_file.exists():
+        raise FileNotFoundError(f"Report not found: {report_file}")
 
-    with open(report_file, "r", encoding="utf8") as f:
-        report_data = json.load(f)
-
-    # Get all detected package.json paths
-    package_paths = [
-        item["absolute_path"]
-        for item in report_data["package_json_analysis"]
-    ]
-
-    # Get directories containing package.json
-    package_directories = [
-        os.path.dirname(path)
-        for path in package_paths
-    ]
-
-    # Find common project root
-    project_path = os.path.commonpath(
-        package_directories
-    )
+    report_data = load_json(report_file)
+    project_path = str(find_project_root(report_data))
 
     print("Detected project root:")
     print(project_path)
 
-    output_file = os.path.join(
-        output_folder,
-        "source_analysis.json"
-    )
+    output_file = OUTPUT_DIR / "source_analysis.json"
 
     analyze_project(
         project_path,
-        output_file
+        str(output_file)
     )

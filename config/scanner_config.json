@@ -1,46 +1,44 @@
 {
     "exclude_directories": [
-        ".git",
-        "node_modules",
-        "__pycache__",
-        ".vite",
-        ".vscode",
-        "venv",
-        "dist",
-        "build"
+        ".git", "node_modules", "__pycache__", ".vite", ".vscode", "venv", ".venv", "dist", "build", ".next", "coverage"
     ],
-    "exclude_files": [
-        ".DS_Store",
-        "Thumbs.db"
-    ],
-    "exclude_extensions": [
-        ".sample",
-        ".log",
-        ".tmp"
-    ],
+    "exclude_files": [".DS_Store", "Thumbs.db"],
+    "exclude_extensions": [".sample", ".log", ".tmp"],
     "extension_language_map": {
-        ".js": "JavaScript",
-        ".jsx": "JavaScript (React)",
-        ".ts": "TypeScript",
-        ".tsx": "TypeScript (React)",
-        ".json": "JSON",
-        ".html": "HTML",
-        ".css": "CSS",
-        ".scss": "SCSS",
-        ".py": "Python",
-        ".md": "Markdown",
+        ".js": "JavaScript", ".jsx": "JavaScript (React)", ".ts": "TypeScript",
+        ".tsx": "TypeScript (React)", ".json": "JSON", ".html": "HTML",
+        ".css": "CSS", ".scss": "SCSS", ".py": "Python", ".md": "Markdown",
         ".env": "Environment Config"
     },
     "important_files": [
-        "package.json",
-        "server.js",
-        "app.js",
-        "App.js",
-        "App.jsx",
-        "db.js",
-        "database.js",
-        ".env",
-        "vite.config.js",
-        "webpack.config.js"
-    ]
+        "package.json", "server.js", "app.js", "App.js", "App.jsx", "db.js",
+        "database.js", ".env", "vite.config.js", "webpack.config.js"
+    ],
+    "dependency_sections": [
+        "dependencies", "devDependencies", "peerDependencies", "optionalDependencies"
+    ],
+    "lockfiles": [
+        "package-lock.json", "npm-shrinkwrap.json", "yarn.lock", "pnpm-lock.yaml"
+    ],
+    "limits": {
+        "build_timeout_seconds": 300,
+        "startup_window_seconds": 15,
+        "output_limit": 12000
+    },
+    "input_reports": {
+        "project_scanner": "project_report.json",
+        "source_analyzer": "source_analysis.json",
+        "import_analyzer": "import_analysis.json",
+        "dependency_analyzer": "dependency_analysis.json",
+        "static_analyzer": "static_analysis.json",
+        "build_analyzer": "build_analysis.json",
+        "runtime_analyzer": "runtime_analysis.json"
+    },
+    "node_builtins": [
+        "assert", "buffer", "child_process", "crypto", "events", "fs", "http", "https", 
+        "module", "os", "path", "process", "stream", "url", "util", "zlib", "timers", 
+        "worker_threads", "net", "dns", "readline", "tty", "querystring", "string_decoder", 
+        "punycode", "console"
+    ],
+    "client_indicators": ["react", "vue", "angular", "next"]
 }

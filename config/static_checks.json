@@ -1,0 +1,26 @@
+[
+  {
+    "rule": "debugger_statement",
+    "pattern": "\\bdebugger\\s*;?",
+    "severity": "low",
+    "message": "Debugger statement found; it may interrupt execution."
+  },
+  {
+    "rule": "eval_usage",
+    "pattern": "\\beval\\s*\\(",
+    "severity": "medium",
+    "message": "eval() found; review for security and maintainability risks."
+  },
+  {
+    "rule": "console_log",
+    "pattern": "\\bconsole\\.log\\s*\\(",
+    "severity": "info",
+    "message": "console.log() found; verify whether this debug output is intentional."
+  },
+  {
+    "rule": "todo_marker",
+    "pattern": "\\b(?:TODO|FIXME|HACK)\\b",
+    "severity": "info",
+    "message": "TODO/FIXME/HACK marker found; review whether work remains."
+  }
+]

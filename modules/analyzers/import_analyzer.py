@@ -1,36 +1,22 @@
-
 import json
 import os
 import re
+import sys
 from pathlib import Path
 
-
-# The Code Revive Agent project's own output folder
-BASE_DIR = Path(__file__).resolve().parents[2]
-OUTPUT_DIR = BASE_DIR / "output"
+sys.path.append(str(Path(__file__).resolve().parents[2]))
+from modules.utils import load_json, load_config, find_project_root, OUTPUT_DIR
 
 PROJECT_REPORT = OUTPUT_DIR / "project_report.json"
 SOURCE_REPORT = OUTPUT_DIR / "source_analysis.json"
 OUTPUT_REPORT = OUTPUT_DIR / "import_analysis.json"
+CONFIG = load_config("scanner_config.json")
 
-IGNORED_DIRS = {
-    "node_modules", ".git", "dist", "build",
-    ".next", "coverage", "venv", ".venv"
-}
-
+# These highly specific JS/TS extensions are maintained logically for import resolution algorithms.
 EXTENSIONS = [
     ".js", ".jsx", ".mjs", ".cjs",
     ".ts", ".tsx", ".json"
 ]
-
-NODE_BUILTINS = {
-    "assert", "buffer", "child_process", "crypto",
-    "events", "fs", "http", "https", "module",
-    "os", "path", "process", "stream", "url",
-    "util", "zlib", "timers", "worker_threads",
-    "net", "dns", "readline", "tty", "querystring",
-    "string_decoder", "punycode", "console"
-}
 
 IMPORT_PATTERN = re.compile(
     r"""(?:\bfrom\s*|\bimport\s*\(|\brequire\s*\()\s*
@@ -39,29 +25,6 @@ IMPORT_PATTERN = re.compile(
         ^\s*import\s*['"]([^'"]+)['"]""",
     re.MULTILINE | re.VERBOSE
 )
-
-
-def read_json(path):
-    with path.open("r", encoding="utf-8-sig") as file:
-        return json.load(file)
-
-
-def find_project_root(project_report):
-    """Find the common parent of all reported package.json directories."""
-    packages = project_report.get("package_json_analysis", [])
-
-    package_dirs = [
-        Path(item["absolute_path"]).resolve().parent
-        for item in packages
-        if item.get("absolute_path")
-    ]
-
-    if not package_dirs:
-        raise ValueError(
-            "No package.json absolute paths were found in project_report.json"
-        )
-
-    return Path(os.path.commonpath([str(p) for p in package_dirs]))
 
 
 def extract_imports(source):
@@ -103,9 +66,10 @@ def resolve_local_import(source_file, specifier):
 
 def load_manifests(project_root):
     manifests = []
+    ignored_dirs = set(CONFIG["exclude_directories"])
 
     for current, dirs, files in os.walk(project_root):
-        dirs[:] = [d for d in dirs if d not in IGNORED_DIRS]
+        dirs[:] = [d for d in dirs if d not in ignored_dirs]
 
         if "package.json" not in files:
             continue
@@ -113,7 +77,7 @@ def load_manifests(project_root):
         manifest_path = Path(current) / "package.json"
 
         try:
-            data = read_json(manifest_path)
+            data = load_json(manifest_path)
         except (OSError, json.JSONDecodeError):
             continue
 
@@ -139,12 +103,7 @@ def declared_packages(source_file, manifests):
 
         data = manifest["data"]
 
-        for section in (
-            "dependencies",
-            "devDependencies",
-            "peerDependencies",
-            "optionalDependencies"
-        ):
+        for section in CONFIG["dependency_sections"]:
             declared.update(data.get(section, {}).keys())
 
     return declared
@@ -170,14 +129,15 @@ def analyze():
             f"{SOURCE_REPORT}"
         )
 
-    project_report = read_json(PROJECT_REPORT)
-    source_reports = read_json(SOURCE_REPORT)
+    project_report = load_json(PROJECT_REPORT)
+    source_reports = load_json(SOURCE_REPORT)
 
     project_root = find_project_root(project_report)
     manifests = load_manifests(project_root)
 
     findings = []
     checked_files = 0
+    node_builtins = set(CONFIG["node_builtins"])
 
     for report in source_reports:
         reported_path = Path(report["file"])
@@ -247,7 +207,7 @@ def analyze():
             # Ignore Node.js built-ins.
             if (
                 specifier.startswith("node:")
-                or package_name(specifier) in NODE_BUILTINS
+                or package_name(specifier) in node_builtins
             ):
                 continue
 

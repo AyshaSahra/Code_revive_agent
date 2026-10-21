@@ -1,32 +1,13 @@
-
 import json
+import sys
 from pathlib import Path
 
-
-BASE_DIR = Path(__file__).resolve().parents[2]
-OUTPUT_DIR = BASE_DIR / "output"
+sys.path.append(str(Path(__file__).resolve().parents[2]))
+from modules.utils import load_json, load_config, OUTPUT_DIR
 
 PROJECT_REPORT = OUTPUT_DIR / "project_report.json"
 OUTPUT_REPORT = OUTPUT_DIR / "dependency_analysis.json"
-
-DEPENDENCY_SECTIONS = [
-    "dependencies",
-    "devDependencies",
-    "peerDependencies",
-    "optionalDependencies"
-]
-
-LOCKFILES = [
-    "package-lock.json",
-    "npm-shrinkwrap.json",
-    "yarn.lock",
-    "pnpm-lock.yaml"
-]
-
-
-def read_json(path):
-    with path.open("r", encoding="utf-8-sig") as file:
-        return json.load(file)
+CONFIG = load_config("scanner_config.json")
 
 
 def analyze():
@@ -35,7 +16,7 @@ def analyze():
             f"Project report not found: {PROJECT_REPORT}"
         )
 
-    report = read_json(PROJECT_REPORT)
+    report = load_json(PROJECT_REPORT)
     packages = report.get("package_json_analysis", [])
 
     findings = []
@@ -71,7 +52,7 @@ def analyze():
             continue
 
         try:
-            data = read_json(manifest_path)
+            data = load_json(manifest_path)
         except (OSError, json.JSONDecodeError) as error:
             findings.append({
                 "type": "manifest_invalid",
@@ -84,7 +65,7 @@ def analyze():
         packages_checked += 1
 
         # Check dependency section formats.
-        for section in DEPENDENCY_SECTIONS:
+        for section in CONFIG["dependency_sections"]:
             if section in data and not isinstance(data[section], dict):
                 findings.append({
                     "type": "invalid_dependency_section",
@@ -129,11 +110,12 @@ def analyze():
 
         # A build script is commonly useful for client applications.
         package_name = data.get("name", manifest_path.parent.name).lower()
-
+        
+        client_indicators = CONFIG.get("client_indicators", [])
         is_client = (
             "client" in folder.parts
             or "frontend" in folder.parts
-            or "react" in data.get("dependencies", {})
+            or any(indicator in data.get("dependencies", {}) for indicator in client_indicators)
         )
 
         if is_client and "build" not in scripts:
@@ -150,7 +132,7 @@ def analyze():
         # A lockfile is useful for reproducible installs, but its absence
         # alone does not mean the project is broken.
         found_lockfiles = [
-            name for name in LOCKFILES
+            name for name in CONFIG["lockfiles"]
             if (folder / name).is_file()
         ]
 

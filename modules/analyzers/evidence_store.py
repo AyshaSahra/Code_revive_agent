@@ -1,26 +1,14 @@
 import json
 import hashlib
+import sys
 from pathlib import Path
 from datetime import datetime, timezone
 
-BASE_DIR = Path(__file__).resolve().parents[2]
-OUTPUT_DIR = BASE_DIR / "output"
+sys.path.append(str(Path(__file__).resolve().parents[2]))
+from modules.utils import load_json, load_config, OUTPUT_DIR
+
 OUTPUT_REPORT = OUTPUT_DIR / "evidence_store.json"
-
-INPUT_REPORTS = {
-    "project_scanner": "project_report.json",
-    "source_analyzer": "source_analysis.json",
-    "import_analyzer": "import_analysis.json",
-    "dependency_analyzer": "dependency_analysis.json",
-    "static_analyzer": "static_analysis.json",
-    "build_analyzer": "build_analysis.json",
-    "runtime_analyzer": "runtime_analysis.json",
-}
-
-
-def load_json(path):
-    with path.open("r", encoding="utf-8-sig") as file:
-        return json.load(file)
+CONFIG = load_config("scanner_config.json")
 
 
 def first_value(item, keys, default=None):
@@ -128,7 +116,7 @@ def main():
     evidence_records = []
     report_status = {}
 
-    for source_name, filename in INPUT_REPORTS.items():
+    for source_name, filename in CONFIG["input_reports"].items():
         report_path = OUTPUT_DIR / filename
 
         if not report_path.is_file():

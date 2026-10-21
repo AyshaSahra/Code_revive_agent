@@ -1,22 +1,16 @@
-
 import json
 import subprocess
 import time
+import sys
 from pathlib import Path
 from datetime import datetime, timezone
 
-BASE_DIR = Path(__file__).resolve().parents[2]
-OUTPUT_DIR = BASE_DIR / "output"
+sys.path.append(str(Path(__file__).resolve().parents[2]))
+from modules.utils import load_json, load_config, OUTPUT_DIR
+
 PROJECT_REPORT = OUTPUT_DIR / "project_report.json"
 OUTPUT_REPORT = OUTPUT_DIR / "build_analysis.json"
-
-BUILD_TIMEOUT_SECONDS = 300
-OUTPUT_LIMIT = 12000
-
-
-def load_json(path):
-    with path.open("r", encoding="utf-8-sig") as file:
-        return json.load(file)
+CONFIG = load_config("scanner_config.json")
 
 
 def get_package_manifests(report):
@@ -88,6 +82,8 @@ def analyze_build(manifest_path):
         )
 
     started = time.monotonic()
+    timeout_limit = CONFIG["limits"]["build_timeout_seconds"]
+    output_limit = CONFIG["limits"]["output_limit"]
 
     try:
         completed = subprocess.run(
@@ -98,15 +94,15 @@ def analyze_build(manifest_path):
             text=True,
             encoding="utf-8",
             errors="replace",
-            timeout=BUILD_TIMEOUT_SECONDS
+            timeout=timeout_limit
         )
 
         duration = round(time.monotonic() - started, 2)
 
         result["exit_code"] = completed.returncode
         result["duration_seconds"] = duration
-        result["stdout"] = completed.stdout[-OUTPUT_LIMIT:]
-        result["stderr"] = completed.stderr[-OUTPUT_LIMIT:]
+        result["stdout"] = completed.stdout[-output_limit:]
+        result["stderr"] = completed.stderr[-output_limit:]
 
         if completed.returncode == 0:
             result["status"] = "passed"
@@ -118,10 +114,10 @@ def analyze_build(manifest_path):
         result["duration_seconds"] = round(
             time.monotonic() - started, 2
         )
-        result["stdout"] = str(error.stdout or "")[-OUTPUT_LIMIT:]
-        result["stderr"] = str(error.stderr or "")[-OUTPUT_LIMIT:]
+        result["stdout"] = str(error.stdout or "")[-output_limit:]
+        result["stderr"] = str(error.stderr or "")[-output_limit:]
         result["error"] = (
-            f"Build exceeded {BUILD_TIMEOUT_SECONDS} seconds."
+            f"Build exceeded {timeout_limit} seconds."
         )
 
     except Exception as error:
@@ -165,7 +161,7 @@ def main():
         "project_name": report.get("project_name", "unknown"),
         "analysis_type": "build_analysis",
         "generated_at": datetime.now(timezone.utc).isoformat(),
-        "timeout_seconds": BUILD_TIMEOUT_SECONDS,
+        "timeout_seconds": CONFIG["limits"]["build_timeout_seconds"],
         "packages_checked": len(results),
         "status_counts": counts,
         "results": results,
