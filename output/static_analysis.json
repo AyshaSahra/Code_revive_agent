@@ -1,0 +1,81 @@
+{
+  "project_name": "terra-tales-project",
+  "project_root": "D:\\VS\\terra-tales-project",
+  "analysis_type": "static_analysis",
+  "generated_at": "2026-10-14T14:23:05.991130+00:00",
+  "files_discovered": 39,
+  "files_checked": 39,
+  "files_unreadable": 0,
+  "findings_count": 7,
+  "findings_by_severity": {
+    "high": 1,
+    "medium": 0,
+    "low": 0,
+    "info": 6
+  },
+  "findings": [
+    {
+      "file": "client\\src\\components\\cards\\ItineraryCard.js",
+      "line": 20,
+      "rule": "console_log",
+      "severity": "info",
+      "message": "console.log() found; verify whether this debug output is intentional.",
+      "evidence": "console.log(\"Fetched cards:\", response.data); // Log fetched data"
+    },
+    {
+      "file": "client\\src\\components\\footer\\FooterElement.js",
+      "line": 35,
+      "rule": "parser_syntax_error",
+      "severity": "high",
+      "message": "Tree-sitter reported a syntax error or missing syntax node.",
+      "evidence": "<p className=\"text-white font-Andika text-[16px]\">News & Blogs</p>"
+    },
+    {
+      "file": "client\\src\\components\\pages\\FavouritesPage.js",
+      "line": 170,
+      "rule": "console_log",
+      "severity": "info",
+      "message": "console.log() found; verify whether this debug output is intentional.",
+      "evidence": "console.log(\"Navigating to:\", `/hidden-spot/${spot._id}`);"
+    },
+    {
+      "file": "client\\src\\components\\profile\\SignUpMongo.js",
+      "line": 27,
+      "rule": "console_log",
+      "severity": "info",
+      "message": "console.log() found; verify whether this debug output is intentional.",
+      "evidence": "console.log(response.data);"
+    },
+    {
+      "file": "server\\server.js",
+      "line": 12,
+      "rule": "console_log",
+      "severity": "info",
+      "message": "console.log() found; verify whether this debug output is intentional.",
+      "evidence": ".then(() => console.log('\u2705 MongoDB connected'))"
+    },
+    {
+      "file": "server\\server.js",
+      "line": 70,
+      "rule": "console_log",
+      "severity": "info",
+      "message": "console.log() found; verify whether this debug output is intentional.",
+      "evidence": "console.log(\"\u2705 New subscriber added:\", email);"
+    },
+    {
+      "file": "server\\server.js",
+      "line": 205,
+      "rule": "console_log",
+      "severity": "info",
+      "message": "console.log() found; verify whether this debug output is intentional.",
+      "evidence": "console.log(`\ud83d\ude80 Server running on port ${PORT}`);"
+    }
+  ],
+  "read_errors": [],
+  "limitations": [
+    "Heuristic patterns can produce false positives.",
+    "Only JavaScript and JSX files are scanned.",
+    "Syntax parsing is available only when Tree-sitter dependencies are installed.",
+    "This does not prove runtime correctness."
+  ]
+}

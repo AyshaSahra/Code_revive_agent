@@ -1,0 +1,207 @@
+{
+  "project_name": "terra-tales-project",
+  "store_type": "local_json",
+  "generated_at": "2026-10-14T14:56:29.109530+00:00",
+  "input_reports": {
+    "project_scanner": {
+      "status": "loaded",
+      "file": "project_report.json",
+      "records_extracted": 0
+    },
+    "source_analyzer": {
+      "status": "loaded",
+      "file": "source_analysis.json",
+      "records_extracted": 0
+    },
+    "import_analyzer": {
+      "status": "loaded",
+      "file": "import_analysis.json",
+      "records_extracted": 1
+    },
+    "dependency_analyzer": {
+      "status": "loaded",
+      "file": "dependency_analysis.json",
+      "records_extracted": 1
+    },
+    "static_analyzer": {
+      "status": "loaded",
+      "file": "static_analysis.json",
+      "records_extracted": 7
+    },
+    "build_analyzer": {
+      "status": "loaded",
+      "file": "build_analysis.json",
+      "records_extracted": 2
+    },
+    "runtime_analyzer": {
+      "status": "loaded",
+      "file": "runtime_analysis.json",
+      "records_extracted": 2
+    }
+  },
+  "total_records_before_deduplication": 13,
+  "total_evidence_records": 13,
+  "severity_counts": {
+    "high": 2,
+    "medium": 1,
+    "info": 10
+  },
+  "evidence": [
+    {
+      "source_analyzer": "import_analyzer",
+      "category": "import_analyzer",
+      "severity": "high",
+      "status": null,
+      "rule": null,
+      "file": "D:\\VS\\terra-tales-project\\server\\routes\\authRoutes.js",
+      "line": null,
+      "message": "Could not resolve this relative import using the common extensions and index-file conventions.",
+      "evidence": "",
+      "evidence_id": "439e44a936d4d232"
+    },
+    {
+      "source_analyzer": "dependency_analyzer",
+      "category": "dependency_analyzer",
+      "severity": "medium",
+      "status": null,
+      "rule": null,
+      "file": "D:\\VS\\terra-tales-project\\server\\package.json",
+      "line": null,
+      "message": "A possible server entry file exists, but package.json does not define a start script.",
+      "evidence": "",
+      "evidence_id": "3cacca98add17f70"
+    },
+    {
+      "source_analyzer": "static_analyzer",
+      "category": "static_analyzer",
+      "severity": "info",
+      "status": null,
+      "rule": "console_log",
+      "file": "client\\src\\components\\cards\\ItineraryCard.js",
+      "line": 20,
+      "message": "console.log() found; verify whether this debug output is intentional.",
+      "evidence": "console.log(\"Fetched cards:\", response.data); // Log fetched data",
+      "evidence_id": "cf0cdff4c4b471f6"
+    },
+    {
+      "source_analyzer": "static_analyzer",
+      "category": "static_analyzer",
+      "severity": "high",
+      "status": null,
+      "rule": "parser_syntax_error",
+      "file": "client\\src\\components\\footer\\FooterElement.js",
+      "line": 35,
+      "message": "Tree-sitter reported a syntax error or missing syntax node.",
+      "evidence": "<p className=\"text-white font-Andika text-[16px]\">News & Blogs</p>",
+      "evidence_id": "4f3a9b7a5997e789"
+    },
+    {
+      "source_analyzer": "static_analyzer",
+      "category": "static_analyzer",
+      "severity": "info",
+      "status": null,
+      "rule": "console_log",
+      "file": "client\\src\\components\\pages\\FavouritesPage.js",
+      "line": 170,
+      "message": "console.log() found; verify whether this debug output is intentional.",
+      "evidence": "console.log(\"Navigating to:\", `/hidden-spot/${spot._id}`);",
+      "evidence_id": "f71f570db86bf8e1"
+    },
+    {
+      "source_analyzer": "static_analyzer",
+      "category": "static_analyzer",
+      "severity": "info",
+      "status": null,
+      "rule": "console_log",
+      "file": "client\\src\\components\\profile\\SignUpMongo.js",
+      "line": 27,
+      "message": "console.log() found; verify whether this debug output is intentional.",
+      "evidence": "console.log(response.data);",
+      "evidence_id": "30e48270d1ed3198"
+    },
+    {
+      "source_analyzer": "static_analyzer",
+      "category": "static_analyzer",
+      "severity": "info",
+      "status": null,
+      "rule": "console_log",
+      "file": "server\\server.js",
+      "line": 12,
+      "message": "console.log() found; verify whether this debug output is intentional.",
+      "evidence": ".then(() => console.log('\u2705 MongoDB connected'))",
+      "evidence_id": "7fc79b8e919f637c"
+    },
+    {
+      "source_analyzer": "static_analyzer",
+      "category": "static_analyzer",
+      "severity": "info",
+      "status": null,
+      "rule": "console_log",
+      "file": "server\\server.js",
+      "line": 70,
+      "message": "console.log() found; verify whether this debug output is intentional.",
+      "evidence": "console.log(\"\u2705 New subscriber added:\", email);",
+      "evidence_id": "e46b3fdcc3048541"
+    },
+    {
+      "source_analyzer": "static_analyzer",
+      "category": "static_analyzer",
+      "severity": "info",
+      "status": null,
+      "rule": "console_log",
+      "file": "server\\server.js",
+      "line": 205,
+      "message": "console.log() found; verify whether this debug output is intentional.",
+      "evidence": "console.log(`\ud83d\ude80 Server running on port ${PORT}`);",
+      "evidence_id": "cb8906361d27ff90"
+    },
+    {
+      "source_analyzer": "build_analyzer",
+      "category": "build_analyzer",
+      "severity": "info",
+      "status": "passed",
+      "rule": null,
+      "file": "D:\\VS\\terra-tales-project\\client\\package.json",
+      "line": null,
+      "message": "Detection result recorded.",
+      "evidence": "(node:19804) [DEP0176] DeprecationWarning: fs.F_OK is deprecated, use fs.constants.F_OK instead\n(Use `node --trace-deprecation ...` to show where the warning was created)\nBrowserslist: browsers data (caniuse-lite) is 21 months old. Please run:\n  npx update-browserslist-db@latest\n  Why you should do it regularly: https://github.com/browserslist/update-db#readme\n\u001b[0;33mOne of your dependencies, babel-preset-react-app, is importing the\n\"@babel/plugin-proposal-private-property-in-object\" package without\ndeclaring it in its dependencies. This is currently working because\n\"@babel/plugin-proposal-private-property-in-object\" is already in your\nnode_modules folder for unrelated reasons, but it \u001b[1mmay break at any time\u001b[0;33m.\n\nbabel-preset-react-app is part of the create-react-app project, \u001b[1mwhich\nis not maintianed anymore\u001b[0;33m. It is thus unlikely that this bug will\never be fixed. Add \"@babel/plugin-proposal-private-property-in-object\" to\nyour devDependencies to work around this error. This will make this message\ngo away.\u001b[0m\n  \nBrowserslist: browsers data (caniuse-lite) is 21 months old. Please run:\n  npx update-browserslist-db@latest\n  Why you should do it regularly: https://github.com/browserslist/update-db#readme\nnpm notice\nnpm notice New minor version of npm available! 11.14.0 -> 11.21.0\nnpm notice Changelog: https://github.com/npm/cli/releases/tag/v11.21.0\nnpm notice To update run: npm install -g npm@11.21.0\nnpm notice\n",
+      "evidence_id": "cc28c2959d439e1f"
+    },
+    {
+      "source_analyzer": "build_analyzer",
+      "category": "build_analyzer",
+      "severity": "info",
+      "status": "no_build_script",
+      "rule": null,
+      "file": "D:\\VS\\terra-tales-project\\server\\package.json",
+      "line": null,
+      "message": "No build script is defined in this package.json. This is not necessarily a problem for a Node.js server.",
+      "evidence": "",
+      "evidence_id": "22572e1d38df3534"
+    },
+    {
+      "source_analyzer": "runtime_analyzer",
+      "category": "runtime_analyzer",
+      "severity": "info",
+      "status": "survived_startup_window",
+      "rule": null,
+      "file": "D:\\VS\\terra-tales-project\\client\\package.json",
+      "line": null,
+      "message": "The process stayed alive during the smoke test. This does not prove that endpoints or features work.",
+      "evidence": "\n> client@0.1.0 start\n> react-scripts start\n\n(node:30880) [DEP0176] DeprecationWarning: fs.F_OK is deprecated, use fs.constants.F_OK instead\n(Use `node --trace-deprecation ...` to show where the warning was created)\nBrowserslist: browsers data (caniuse-lite) is 21 months old. Please run:\n  npx update-browserslist-db@latest\n  Why you should do it regularly: https://github.com/browserslist/update-db#readme\n(node:30880) [DEP_WEBPACK_DEV_SERVER_ON_AFTER_SETUP_MIDDLEWARE] DeprecationWarning: 'onAfterSetupMiddleware' option is deprecated. Please use the 'setupMiddlewares' option.\n(node:30880) [DEP_WEBPACK_DEV_SERVER_ON_BEFORE_SETUP_MIDDLEWARE] DeprecationWarning: 'onBeforeSetupMiddleware' option is deprecated. Please use the 'setupMiddlewares' option.\nStarting the development server...\n\n",
+      "evidence_id": "2d1f0e9a1b0b6df6"
+    },
+    {
+      "source_analyzer": "runtime_analyzer",
+      "category": "runtime_analyzer",
+      "severity": "info",
+      "status": "no_start_script",
+      "rule": null,
+      "file": "D:\\VS\\terra-tales-project\\server\\package.json",
+      "line": null,
+      "message": "No start script is defined.",
+      "evidence": "",
+      "evidence_id": "b43f38da082df22e"
+    }
+  ]
+}

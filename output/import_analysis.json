@@ -1,0 +1,22 @@
+{
+  "project_name": "terra-tales-project",
+  "project_root": "D:\\VS\\terra-tales-project",
+  "source_files_checked": 39,
+  "package_manifests_found": 2,
+  "findings_count": 1,
+  "findings": [
+    {
+      "type": "unresolved_local_import",
+      "file": "D:\\VS\\terra-tales-project\\server\\routes\\authRoutes.js",
+      "import": "../models/User",
+      "severity": "high",
+      "message": "Could not resolve this relative import using the common extensions and index-file conventions."
+    }
+  ],
+  "limitations": [
+    "Only common JavaScript import forms are extracted.",
+    "TypeScript and custom bundler aliases are not fully resolved.",
+    "Monorepo and workspace dependency rules may need extra handling.",
+    "A reported unresolved import requires validation before declaring a confirmed failure."
+  ]
+}
