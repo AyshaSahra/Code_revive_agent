@@ -1,0 +1,130 @@
+{
+  "project_name": "terra-tales-project",
+  "status": "database_analyzed",
+  "generated_at": "2026-10-22T14:16:15.356300+00:00",
+  "technologies": [
+    "mongoose"
+  ],
+  "metrics": {
+    "connections_found": 1,
+    "models_found": 5,
+    "operations_found": 11
+  },
+  "connections": [
+    {
+      "file": "server\\server.js",
+      "line": 11,
+      "type": "mongoose.connect",
+      "uses_env_vars": [
+        "MONGO_URI"
+      ],
+      "evidence": "mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })"
+    }
+  ],
+  "models": [
+    {
+      "file": "server\\modals\\User.js",
+      "line": 9,
+      "entity_name": "User",
+      "type": ".model"
+    },
+    {
+      "file": "server\\server.js",
+      "line": 25,
+      "entity_name": "Card",
+      "type": ".model"
+    },
+    {
+      "file": "server\\server.js",
+      "line": 35,
+      "entity_name": "ItineraryCard",
+      "type": ".model"
+    },
+    {
+      "file": "server\\server.js",
+      "line": 46,
+      "entity_name": "HiddenSpot",
+      "type": ".model"
+    },
+    {
+      "file": "server\\server.js",
+      "line": 52,
+      "entity_name": "Subscriber",
+      "type": ".model"
+    }
+  ],
+  "operations_sample": [
+    {
+      "file": "server\\routes\\authRoutes.js",
+      "line": 15,
+      "operation": "findOne",
+      "evidence": "const existingUser = await User.findOne({ email });"
+    },
+    {
+      "file": "server\\routes\\authRoutes.js",
+      "line": 22,
+      "operation": "save",
+      "evidence": "await newUser.save();"
+    },
+    {
+      "file": "server\\routes\\authRoutes.js",
+      "line": 35,
+      "operation": "findOne",
+      "evidence": "const user = await User.findOne({ email });"
+    },
+    {
+      "file": "server\\server.js",
+      "line": 63,
+      "operation": "findOne",
+      "evidence": "const exists = await Subscriber.findOne({ email });"
+    },
+    {
+      "file": "server\\server.js",
+      "line": 69,
+      "operation": "save",
+      "evidence": "await newSubscriber.save();"
+    },
+    {
+      "file": "server\\server.js",
+      "line": 81,
+      "operation": "find",
+      "evidence": "const subscribers = await Subscriber.find();"
+    },
+    {
+      "file": "server\\server.js",
+      "line": 92,
+      "operation": "find",
+      "evidence": "const cards = await Card.find();"
+    },
+    {
+      "file": "server\\server.js",
+      "line": 101,
+      "operation": "find",
+      "evidence": "const itineraryCards = await ItineraryCard.find();"
+    },
+    {
+      "file": "server\\server.js",
+      "line": 115,
+      "operation": "find",
+      "evidence": "const searchResults = await Card.find({"
+    },
+    {
+      "file": "server\\server.js",
+      "line": 165,
+      "operation": "find",
+      "evidence": "const searchResults = await HiddenSpot.find({"
+    },
+    {
+      "file": "server\\server.js",
+      "line": 194,
+      "operation": "find",
+      "evidence": "const hiddenSpots = await HiddenSpot.find();"
+    }
+  ],
+  "findings": [],
+  "limitations": [
+    "Analysis is purely static; no live database connections are made.",
+    "Cannot verify if the connection URI is reachable or valid.",
+    "Missing 'await' detection is heuristic and may produce false positives on complex promise chains."
+  ]
+}

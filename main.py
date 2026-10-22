@@ -54,6 +54,7 @@ def main():
         ("modules.analyzers.import_analyzer", []),
         ("modules.analyzers.static_analyzer", []),
         ("modules.analyzers.dependency_analyzer", []),
+        ("modules.analyzers.database_analyzer", []),
         ("modules.analyzers.build_analyzer", []),
         ("modules.analyzers.runtime_analyzer", []),
         ("modules.analyzers.evidence_store", [])
