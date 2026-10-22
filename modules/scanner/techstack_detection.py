@@ -2,8 +2,8 @@ import os
 import json
 from pathlib import Path
 
-# --- CONFIGURABLE BASE PATH ---
-BASE_DIR = Path("D:/VS/Code Revive Agent")   # Change this once if you move your project
+# --- CONFIGURABLE BASE PATH (Updated for dynamic resolution) ---
+BASE_DIR = Path(__file__).resolve().parents[2]
 CONFIG_DIR = BASE_DIR / "config"
 OUTPUT_DIR = BASE_DIR / "output"
 

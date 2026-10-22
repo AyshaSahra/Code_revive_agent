@@ -1,10 +1,11 @@
 import os
+import sys
 import json
 from collections import Counter
 from pathlib import Path
 
-# --- CONFIGURABLE BASE PATH ---
-BASE_DIR = Path("D:/VS/Code Revive Agent")   # Change this once if you move your project
+# --- CONFIGURABLE BASE PATH (Updated for dynamic resolution) ---
+BASE_DIR = Path(__file__).resolve().parents[2]
 CONFIG_DIR = BASE_DIR / "config"
 OUTPUT_DIR = BASE_DIR / "output"
 
@@ -140,7 +141,11 @@ def main():
         print(e)
         return
 
-    path = input("Enter the path of the directory to scan: ")
+    # Check for CLI argument first, fallback to input()
+    if len(sys.argv) > 1:
+        path = sys.argv[1]
+    else:
+        path = input("Enter the path of the directory to scan: ")
 
     if not os.path.isdir(path):
         print("Invalid directory path.")

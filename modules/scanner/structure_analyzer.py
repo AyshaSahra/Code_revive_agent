@@ -1,14 +1,12 @@
 import os
 import json
 from pathlib import Path
-from pathlib import Path
 
-# Change this once if you move your project
-BASE_DIR = Path("D:/VS/Code Revive Agent")
+# Change this once if you move your project (Updated for dynamic resolution)
+BASE_DIR = Path(__file__).resolve().parents[2]
 
 CONFIG_DIR = BASE_DIR / "config"
 OUTPUT_DIR = BASE_DIR / "output"
-
 
 def load_directory_roles(config_dir):
     """Load the declarative directory roles map from config/directory_roles.json."""
@@ -222,8 +220,6 @@ def main():
 
     print(f"\nProject structure report successfully saved to: {output_file}")
 
-
-    print(f"\nProject structure report successfully saved to: {output_file}")
 
 if __name__ == "__main__":
     main()

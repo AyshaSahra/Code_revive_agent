@@ -25,12 +25,13 @@
         "startup_window_seconds": 15,
         "output_limit": 12000
     },
-    "input_reports": {
+        "input_reports": {
         "project_scanner": "project_report.json",
         "source_analyzer": "source_analysis.json",
         "import_analyzer": "import_analysis.json",
         "dependency_analyzer": "dependency_analysis.json",
         "static_analyzer": "static_analysis.json",
+        "database_analyzer": "database_analysis.json", 
         "build_analyzer": "build_analysis.json",
         "runtime_analyzer": "runtime_analysis.json"
     },
