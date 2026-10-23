@@ -1,0 +1,158 @@
+{
+  "project_name": "terra-tales-project",
+  "generated_at": "2026-10-23T16:36:37.186119+00:00",
+  "project_overview": {
+    "technologies_detected": [
+      "@emotion/react",
+      "@react-google-maps/api",
+      "@testing-library/react",
+      "axios",
+      "bcryptjs",
+      "cors",
+      "dotenv",
+      "express",
+      "jsonwebtoken",
+      "lucide-react",
+      "mongoose",
+      "react",
+      "react-dom",
+      "react-icons",
+      "react-router-dom",
+      "react-scripts",
+      "tailwindcss"
+    ],
+    "architecture_identified": "client-server",
+    "databases_identified": [
+      "mongoose"
+    ]
+  },
+  "recovery_plan": [
+    "HIGH PRIORITY: Investigate and resolve 'unknown' in D:\\VS\\terra-tales-project\\server\\routes\\authRoutes.js.",
+    "HIGH PRIORITY: Fix syntax or parsing errors breaking compilation in client\\src\\components\\footer\\FooterElement.js."
+  ],
+  "total_findings": 13,
+  "findings": [
+    {
+      "priority": "Critical/High",
+      "severity": "high",
+      "status_category": "confirmed",
+      "rule": "unknown",
+      "affected_file": "D:\\VS\\terra-tales-project\\server\\routes\\authRoutes.js",
+      "message": "Could not resolve this relative import using the common extensions and index-file conventions.",
+      "evidence_snippet": ""
+    },
+    {
+      "priority": "Critical/High",
+      "severity": "high",
+      "status_category": "confirmed",
+      "rule": "parser_syntax_error",
+      "affected_file": "client\\src\\components\\footer\\FooterElement.js",
+      "message": "Tree-sitter reported a syntax error or missing syntax node.",
+      "evidence_snippet": "<p className=\"text-white font-Andika text-[16px]\">News & Blogs</p>"
+    },
+    {
+      "priority": "Medium",
+      "severity": "medium",
+      "status_category": "confirmed",
+      "rule": "unknown",
+      "affected_file": "D:\\VS\\terra-tales-project\\server\\package.json",
+      "message": "A possible server entry file exists, but package.json does not define a start script.",
+      "evidence_snippet": ""
+    },
+    {
+      "priority": "Low/Info",
+      "severity": "info",
+      "status_category": "unverified",
+      "rule": "console_log",
+      "affected_file": "client\\src\\components\\cards\\ItineraryCard.js",
+      "message": "console.log() found; verify whether this debug output is intentional.",
+      "evidence_snippet": "console.log(\"Fetched cards:\", response.data); // Log fetched data"
+    },
+    {
+      "priority": "Low/Info",
+      "severity": "info",
+      "status_category": "unverified",
+      "rule": "console_log",
+      "affected_file": "client\\src\\components\\pages\\FavouritesPage.js",
+      "message": "console.log() found; verify whether this debug output is intentional.",
+      "evidence_snippet": "console.log(\"Navigating to:\", `/hidden-spot/${spot._id}`);"
+    },
+    {
+      "priority": "Low/Info",
+      "severity": "info",
+      "status_category": "unverified",
+      "rule": "console_log",
+      "affected_file": "client\\src\\components\\profile\\SignUpMongo.js",
+      "message": "console.log() found; verify whether this debug output is intentional.",
+      "evidence_snippet": "console.log(response.data);"
+    },
+    {
+      "priority": "Low/Info",
+      "severity": "info",
+      "status_category": "unverified",
+      "rule": "console_log",
+      "affected_file": "server\\server.js",
+      "message": "console.log() found; verify whether this debug output is intentional.",
+      "evidence_snippet": ".then(() => console.log('\u2705 MongoDB connected'))"
+    },
+    {
+      "priority": "Low/Info",
+      "severity": "info",
+      "status_category": "unverified",
+      "rule": "console_log",
+      "affected_file": "server\\server.js",
+      "message": "console.log() found; verify whether this debug output is intentional.",
+      "evidence_snippet": "console.log(\"\u2705 New subscriber added:\", email);"
+    },
+    {
+      "priority": "Low/Info",
+      "severity": "info",
+      "status_category": "unverified",
+      "rule": "console_log",
+      "affected_file": "server\\server.js",
+      "message": "console.log() found; verify whether this debug output is intentional.",
+      "evidence_snippet": "console.log(`\ud83d\ude80 Server running on port ${PORT}`);"
+    },
+    {
+      "priority": "Low/Info",
+      "severity": "info",
+      "status_category": "unverified",
+      "rule": "unknown",
+      "affected_file": "D:\\VS\\terra-tales-project\\client\\package.json",
+      "message": "Detection result recorded.",
+      "evidence_snippet": "(node:29364) [DEP0176] DeprecationWarning: fs.F_OK is deprecated, use fs.constants.F_OK instead\n(Use `node --trace-deprecation ...` to show where the warning was created)\nBrowserslist: browsers data ("
+    },
+    {
+      "priority": "Low/Info",
+      "severity": "info",
+      "status_category": "unverified",
+      "rule": "unknown",
+      "affected_file": "D:\\VS\\terra-tales-project\\server\\package.json",
+      "message": "No build script is defined in this package.json. This is not necessarily a problem for a Node.js server.",
+      "evidence_snippet": ""
+    },
+    {
+      "priority": "Low/Info",
+      "severity": "info",
+      "status_category": "unverified",
+      "rule": "unknown",
+      "affected_file": "D:\\VS\\terra-tales-project\\client\\package.json",
+      "message": "The process stayed alive during the smoke test. This does not prove that endpoints or features work.",
+      "evidence_snippet": "> client@0.1.0 start\n> react-scripts start\n\n(node:19192) [DEP0176] DeprecationWarning: fs.F_OK is deprecated, use fs.constants.F_OK instead\n(Use `node --trace-deprecation ...` to show where the warnin"
+    },
+    {
+      "priority": "Low/Info",
+      "severity": "info",
+      "status_category": "unverified",
+      "rule": "unknown",
+      "affected_file": "D:\\VS\\terra-tales-project\\server\\package.json",
+      "message": "No start script is defined.",
+      "evidence_snippet": ""
+    }
+  ],
+  "limitations": [
+    "This recovery report is derived purely from static analysis evidence.",
+    "Dynamic runtime errors, active network failures, and live database state are not represented.",
+    "Potential issues require manual developer verification to confirm they impact production."
+  ]
+}
